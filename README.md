@@ -1,4 +1,4 @@
-# docker-override-collection
+# DockSTARTer Docker Override Examples
 Collection of my Docker Override's for DockSTARTer
 
 # Apps Included
