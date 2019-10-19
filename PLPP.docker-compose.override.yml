@@ -1,3 +1,4 @@
+#PHP Plex Library presenter that doesn't require giving access to server https://github.com/christronyxyocum/docker-plpp
 version: "3.4"
 services:
   plpp:
