@@ -1,0 +1,43 @@
+version: "3.4"  # this must match the version in docker-compose.yml
+services:
+    monicahq:
+    container_name: monicahq
+    image: monicahq/monicahq
+    labels:
+      - "com.dockstarter.appinfo.description: a personal Relationship Manager AKA Contact Manager"
+      - "com.dockstarter.appinfo.nicename: MonicaHQ"
+    logging:
+      driver: json-file
+      options:
+        max-file: ${DOCKERLOGGING_MAXFILE}
+        max-size: ${DOCKERLOGGING_MAXSIZE}
+    depends_on:
+      - monicadb
+    ports:
+      - 9999:80
+    env_file: /opt/appdata/monicahq/.env
+    volumes:
+      - /opt/appdata/monicahq:/var/www/monica/storage
+      - ${DOCKERSHAREDDIR}:/shared
+    restart: unless-stopped
+
+  monicadb:
+    container_name: monicadb
+    image: mysql:5.7
+    labels:
+      - "com.dockstarter.appinfo.description: MySQL for MonicaDB"
+      - "com.dockstarter.appinfo.nicename: MySQL 4 MonicaDB"
+    logging:
+      driver: json-file
+      options:
+        max-file: ${DOCKERLOGGING_MAXFILE}
+        max-size: ${DOCKERLOGGING_MAXSIZE}
+    environment:
+      - "MYSQL_ROOT_PASSWORD=ChangeMe"
+      - "MYSQL_DATABASE=monica"
+      - "MYSQL_USER=monicahq"
+      - "MYSQL_PASSWORD=Changeme"
+    volumes:
+      - /opt/appdata/mysql:/var/lib/mysql
+      - ${DOCKERSHAREDDIR}:/shared
+    restart: unless-stopped
