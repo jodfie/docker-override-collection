@@ -1,3 +1,4 @@
+# MonicaHQ a Personal Relationship Manager https://github.com/monicahq/monica
 version: "3.4"  # this must match the version in docker-compose.yml
 services:
     monicahq:
