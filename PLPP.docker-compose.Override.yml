@@ -1,0 +1,22 @@
+version: "3.4"
+services:
+  plpp:
+     image: tronyx/docker-plpp
+     container_name: plpp
+     labels:
+       - "com.dockstarter.appinfo.description: PHP Plex Library presenter that doesnt require giving access to server"
+       - "com.dockstarter.appinfo.nicename: Plex PHP Library Presenter"
+     logging:
+        driver: json-file
+        options:
+          max-file: ${DOCKERLOGGING_MAXFILE}
+          max-size: ${DOCKERLOGGING_MAXSIZE}
+     environment:
+        - PUID=1000
+        - PGID=1000
+     volumes:
+        - /opt/appdata/plpp/config/:/config
+        - ${DOCKERSHAREDDIR}:/shared
+     ports:
+        - "8383:80"
+     restart: unless-stopped
