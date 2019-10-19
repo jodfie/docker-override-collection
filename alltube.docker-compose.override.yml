@@ -1,0 +1,23 @@
+version: "3.4"  # this must match the version in docker-compose.yml
+services:
+  alltube:
+    container_name: alltube
+    image: rudloff/alltube
+    labels:
+      - "com.dockstarter.appinfo.description: Online Video Downloader"
+      - "com.dockstarter.appinfo.nicename: Alltube"
+    logging:
+      driver: json-file
+      options:
+        max-file: ${DOCKERLOGGING_MAXFILE}
+        max-size: ${DOCKERLOGGING_MAXSIZE}
+    ports:
+      - "1234:80"
+    environment:
+      - "PUID:1000"
+      - "PGID:1000"
+      - "FORCE_COLOR:1"
+    volumes:
+      - /opt/appdata/alltube:/var/www/html/config
+      - ${DOCKERSHAREDDIR}:/share
+    restart: unless-stopped
