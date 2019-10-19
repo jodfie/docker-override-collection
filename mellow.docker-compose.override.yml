@@ -1,3 +1,4 @@
+# Mellow Discord Bot https://github.com/v0idp/Mellow
 version: "3.4"  # this must match the version in docker-compose.yml
 services:
     mellow:
