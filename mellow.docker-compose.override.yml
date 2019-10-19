@@ -1,0 +1,21 @@
+version: "3.4"  # this must match the version in docker-compose.yml
+services:
+    mellow:
+    container_name: mellow
+    image: voidp/mellow:latest
+    labels:
+      - "com.dockstarter.appinfo.description: Media Server Bot for Discord"
+      - "com.dockstarter.appinfo.nicename: Mellow Bot"
+    logging:
+      driver: json-file
+      options:
+        max-file: ${DOCKERLOGGING_MAXFILE}
+        max-size: ${DOCKERLOGGING_MAXSIZE}
+    ports:
+      - "5060:5060"
+    environment:
+      - "FORCE_COLOR:1"
+    volumes:
+      - /opt/appdata/mellow/:/usr/src/app/data/
+      - ${DOCKERSHAREDDIR}:/share
+    restart: unless-stopped
